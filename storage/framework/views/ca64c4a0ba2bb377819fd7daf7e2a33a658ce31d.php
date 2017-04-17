@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="<?php echo e(config('app.locale')); ?>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-        <script src="{{ asset('js/jquery-3.2.0.min.js') }}" charset="utf-8"></script>
+        <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css">
+        <script src="<?php echo e(asset('js/jquery-3.2.0.min.js')); ?>" charset="utf-8"></script>
 
         <!-- Styles -->
         <style>
@@ -68,16 +68,16 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+            <?php if(Route::has('login')): ?>
                 <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
+                    <?php if(Auth::check()): ?>
+                        <a href="<?php echo e(url('/home')); ?>">Home</a>
+                    <?php else: ?>
+                        <a href="<?php echo e(url('/login')); ?>">Login</a>
+                        <a href="<?php echo e(url('/register')); ?>">Register</a>
+                    <?php endif; ?>
                 </div>
-            @endif
+            <?php endif; ?>
 
             <div class="content">
                 <div class="title m-b-md">
@@ -86,25 +86,16 @@
 
                 <div class="links">
                     <a href="#about" data-toggle="tab" aria-expanded="true">About</a>
-                    <a href="#press" data-toggle="tab" aria-expanded="true">Press</a>
+                    <a href="#press">Press</a>
                     <a href="https://github.com/rakhaviantoni/ArvipiACL-Laravel-5.4" target="_blank">GitHub</a>
-                    <a href="#contact" data-toggle="tab" aria-expanded="true">Contact</a>
-                  </div><br>
+                    <a href="#contact">Contact</a>
+                  </div>
                     <div id="myTabContent" class="col-md-12 tab-content">
                       <div class="tab-pane fade active in" id="about">
                         <p>PT. Arvipi Limited is an IT company that's formed in 2017 where their first application (Adoreo) launched with more than 100,000 registered users in a month. With their focus on creating solution for the country, they are able to grow up fast with providing some Web Service that able to helps other’s production efficiency.</p>
                       </div>
                       <div class="tab-pane fade" id="press">
-                        @foreach($press as $press)
-                        <div class="panel panel-primary">
-                          <div class="panel-heading">
-                            <h3 class="panel-title">{{ $press->title }} on {{ Carbon\Carbon::parse($press->created_at)->toFormattedDateString() }} by {{ $press->user->username }}</h3>
-                          </div>
-                          <div class="panel-body" style="text-align:left">
-                            {!! $press->description !!}
-                          </div>
-                        </div>
-                        @endforeach
+                        <p>Press Release Coming Soon on ArvipiACL.</p>
                       </div>
                       <div class="tab-pane fade" id="contact">
                         <p>rakhaviantoni.my.id</p>
@@ -112,6 +103,6 @@
                     </div>
             </div>
         </div>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
     </body>
 </html>

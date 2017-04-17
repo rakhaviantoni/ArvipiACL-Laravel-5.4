@@ -1,11 +1,11 @@
-@extends('layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
           <ul class="breadcrumb">
-          <li><a href="{{ url('/home') }}">Dashboard</a></li>
+          <li><a href="<?php echo e(url('/home')); ?>">Dashboard</a></li>
           <li class="active">News Managemet</li>
           </ul>
 
@@ -16,51 +16,52 @@
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                   <h4 class="modal-title">Create News</h4>
                 </div>
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/home/news/store') }}">
-                    {{ csrf_field() }}
+                <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/home/news/store')); ?>">
+                    <?php echo e(csrf_field()); ?>
+
                 <div class="modal-body">
-                  <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                  <div class="form-group<?php echo e($errors->has('title') ? ' has-error' : ''); ?>">
                       <label for="name" class="col-md-4 control-label">Title</label>
 
                       <div class="col-md-6">
-                          <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
+                          <input id="title" type="text" class="form-control" name="title" value="<?php echo e(old('title')); ?>" required autofocus>
 
-                          @if ($errors->has('title'))
+                          <?php if($errors->has('title')): ?>
                               <span class="help-block">
-                                  <strong>{{ $errors->first('title') }}</strong>
+                                  <strong><?php echo e($errors->first('title')); ?></strong>
                               </span>
-                          @endif
+                          <?php endif; ?>
                       </div>
                   </div>
-                  <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                  <div class="form-group<?php echo e($errors->has('category') ? ' has-error' : ''); ?>">
                       <label for="category" class="col-md-4 control-label">Category</label>
 
                       <div class="col-md-6">
-                          <input id="category" type="text" class="form-control" name="category" value="{{ old('category') }}" required autofocus>
+                          <input id="category" type="text" class="form-control" name="category" value="<?php echo e(old('category')); ?>" required autofocus>
 
-                          @if ($errors->has('category'))
+                          <?php if($errors->has('category')): ?>
                               <span class="help-block">
-                                  <strong>{{ $errors->first('category') }}</strong>
+                                  <strong><?php echo e($errors->first('category')); ?></strong>
                               </span>
-                          @endif
+                          <?php endif; ?>
                       </div>
                   </div>
-                  <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                  <div class="form-group<?php echo e($errors->has('description') ? ' has-error' : ''); ?>">
                       <label for="description" class="col-md-4 control-label">Description</label>
 
                       <div class="col-md-6">
-                          <textarea id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autofocus></textarea>
+                          <textarea id="description" type="text" class="form-control" name="description" value="<?php echo e(old('description')); ?>" required autofocus></textarea>
 
-                          @if ($errors->has('description'))
+                          <?php if($errors->has('description')): ?>
                               <span class="help-block">
-                                  <strong>{{ $errors->first('description') }}</strong>
+                                  <strong><?php echo e($errors->first('description')); ?></strong>
                               </span>
-                          @endif
+                          <?php endif; ?>
                       </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <input id="userid" type="hidden" class="form-control" name="userid" value="{{ Auth::user()->userid }}">
+                  <input id="userid" type="hidden" class="form-control" name="userid" value="<?php echo e(Auth::user()->userid); ?>">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary">Create</button>
                 </form>
@@ -92,9 +93,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
     $(function () {
         $('#news-table').DataTable({
@@ -113,4 +114,6 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

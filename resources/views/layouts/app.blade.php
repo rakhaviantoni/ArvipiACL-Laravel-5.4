@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
@@ -48,21 +49,26 @@
                     <ul class="nav navbar-nav">
                       @if (Auth::check())
                           <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                          @if (Auth::user()->role == 'admin')
-                              <li><a href="{{ url('/home/press') }}">Press Release Management</a></li>
-                              <li><a href="{{ url('/home/users') }}">Users Management</a></li>
-                          @elseif (Auth::user()->role == 'editorial')
-                              <li><a href="{{ url('/home/news') }}">News Management</a></li>
-                          @elseif (Auth::user()->role == 'finance')
-                              <li><a href="{{ url('/home/payroll') }}">Payroll</a></li>
-                          @elseif (Auth::user()->role == 'hrd')
-                              <li><a href="{{ url('/home/employees') }}">Employees Database</a></li>
-                              <li><a href="{{ url('/home/recruitment') }}">Recruitment Tracking</a></li>
-                          @elseif (Auth::user()->role == 'marketing')
-                              <li><a href="{{ url('/home/marketing') }}">Marketing Report</a></li>
-                          @elseif (Auth::user()->role == 'sales')
-                              <li><a href="{{ url('/home/sales') }}">Sales Report</a></li>
-                          @endif
+                          @if ((Auth::user()->position->positionname) == 'Member')
+                            &nbsp
+                          @else
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  {{ Auth::user()->position->positionname }}'s Menu <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                              {!! Auth::user()->position->press ? '<li><a href="'.$press= url('/home/press').'">Press Release Management</a></li>' : '' !!}
+                              {!! Auth::user()->position->users ? '<li><a href="'.$users= url('/home/users').'">Users Management</a></li>' : '' !!}
+                              {!! Auth::user()->position->role ? '<li><a href="'.$role= url('/home/role').'">Role Permission</a></li>' : '' !!}
+                              {!! Auth::user()->position->news ? '<li><a href="'.$news= url('/home/news').'">News Management</a></li>' : '' !!}
+                              {!! Auth::user()->position->payroll ? '<li><a href="'.$payroll= url('/home/payroll').'">Payroll</a></li>' : '' !!}
+                              {!! Auth::user()->position->employees ? '<li><a href="'.$employees= url('/home/employees').'">Employees Database</a></li>' : '' !!}
+                              {!! Auth::user()->position->recruitment ? '<li><a href="'.$recruitment= url('/home/recuitment').'">Recruitment Tracking</a></li>' : '' !!}
+                              {!! Auth::user()->position->marketing ? '<li><a href="'.$marketing= url('/home/marketing').'">Marketing Report</a></li>' : '' !!}
+                              {!! Auth::user()->position->sales ? '<li><a href="'.$sales= url('/home/sales').'">Sales Report</a></li>' : '' !!}
+                              </ul>
+                          </li>
+                        @endif
                       @endif
                     </ul>
 
@@ -76,7 +82,7 @@
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} - {{ Auth::user()->position }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} - {{ Auth::user()->position->positionname }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">

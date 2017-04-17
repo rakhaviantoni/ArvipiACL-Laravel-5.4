@@ -4,7 +4,7 @@
 <!-- @include('toast::messages') -->
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
           @if(Session::has('toasts'))
             @foreach(Session::get('toasts') as $toast)
               <div class="alert alert-{{ $toast['level'] }}">
@@ -28,11 +28,18 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Admin</th>
-                        <th>HRD</th>
+                        <th>CEO</th>
+                        <th>COO</th>
+                        <th>CFO</th>
+                        <th>CTO</th>
+                        <th>CMO</th>
                         <th>Finance</th>
+                        <th>HRD</th>
+                        <th>Software Developer</th>
                         <th>Editorial</th>
                         <th>Marketing</th>
                         <th>Sales</th>
+                        <th>Member</th>
                       </tr>
                       </thead>
 
@@ -44,18 +51,32 @@
                         <form action="{{ url('/home/users/changerole') }}" method="POST">
                         {!! csrf_field() !!}
                         <input type="hidden" name="id" value="{{ $user->id }}" >
-                        <td>@if ($user->role == 'admin')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Admin" onClick="this.form.submit()">@endif</td>
-                        <td>@if ($user->role == 'hrd')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Hrd" onClick="this.form.submit()">@endif</td>
-                        <td>@if ($user->role == 'finance')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Finance" onClick="this.form.submit()">@endif</td>
-                        <td>@if ($user->role == 'editorial')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Editorial" onClick="this.form.submit()">@endif</td>
-                        <td>@if ($user->role == 'marketing')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Marketing" onClick="this.form.submit()">@endif</td>
-                        <td>@if ($user->role == 'sales')
-                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="Sales" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '1')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="1" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '2')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="2" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '3')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="3" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '4')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="4" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '5')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="5" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '6')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="6" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '7')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="7" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '8')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="8" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '9')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="9" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '10')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="10" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '11')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="11" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '12')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="12" onClick="this.form.submit()">@endif</td>
+                        <td>@if ($user->positionid == '13')
+                          <input type="checkbox" onClick="this.form.submit()" checked>@else<input type="checkbox" name="newposition" value="13" onClick="this.form.submit()">@endif</td>
                         </form>
                     </tbody>
                     @endforeach
