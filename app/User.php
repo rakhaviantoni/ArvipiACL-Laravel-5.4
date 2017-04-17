@@ -5,11 +5,16 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use App\Position;
+use App\Press;
 
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use Notifiable;
+
+    protected $table = "users";
+    protected $primaryKey = 'userid';
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'role', 'password',
+        'employeeid', 'name', 'username', 'email', 'positionid', 'password',
     ];
 
     /**
@@ -29,9 +34,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function change($newrole, $newposition) {
-        $this->role = $newrole;
-        $this->position = $newposition;
+    public function position() {
+        return $this->belongsTo('App\Position', 'positionid');
+    }
+
+    public function press() {
+          return $this->hasMany('App\Press', 'userid');
+      }
+
+    public function change($newposition) {
+        $this->positionid = $newposition;
         $this->save();
     }
 }

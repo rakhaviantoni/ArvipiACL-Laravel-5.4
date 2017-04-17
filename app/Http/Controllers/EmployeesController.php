@@ -5,21 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Position;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 
 class EmployeesController extends Controller
 {
-  public function index(Request $request, Builder $htmlBuilder)
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
   {
-    if ($request->ajax()) {
-      $employees = User::select(['id', 'name', 'username', 'position', 'role']);
-      return Datatables::of($employees)->make(true);
-    }
-      $html = $htmlBuilder
-      ->addColumn(['data' => 'name', 'name'=>'name', 'title'=>'Nama'])
-      ->addColumn(['data' => 'username', 'username'=>'username', 'title'=>'Username'])
-      ->addColumn(['data' => 'position', 'position'=>'position', 'title'=>'Role']);
-      return view('employees')->with(compact('html'));
+      $this->middleware('auth');
+  }
+
+  public function index() {
+      return view('employees');
+  }
+  /**
+   * Process dataTable ajax response.
+   *
+   * @param \Yajra\Datatables\Datatables $datatables
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function data(Datatables $datatables)
+  {
+      return $datatables->eloquent(User::with('position')->select('users.*'))
+                        ->addColumn('action', 'table.action')
+                        ->make(true);
   }
 }
